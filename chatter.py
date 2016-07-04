@@ -36,7 +36,7 @@ def on_disconnect(client, obj, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 	text = str(msg.payload).decode('base64')
-	if text.startswith(userdata):
+	if text.startswith(userdata):   # this could be a problem
 		pass
 	else:
 		#INSERT_ONE_LINE = '\x1b[1L'
@@ -47,6 +47,7 @@ def on_message(client, userdata, msg):
 		#CURSOR_DOWN_ONE = '\x1b[1B'
 		sys.stdout.write(userdata+": ")
 		sys.stdout.flush()
+		# print('\x1b[1C\x1b[1D')
 
 
 #def on_timer():
@@ -80,7 +81,8 @@ while True:
 
 	if text == "exit":
 		sys.exit()
-	client.publish("public/chatter", (user+": "+text).encode('base64','strict'))
+	if text != "":
+		client.publish("public/chatter", (user+": "+text).encode('base64','strict'))
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
