@@ -43,7 +43,7 @@ def on_message(client, userdata, msg):
 		#CURSOR_UP_ONE = '\x1b[1A'
 		#ERASE_LINE = ''#'\x1b[2K'
 		#print(INSERT_ONE_LINE+CURSOR_UP_ONE + ERASE_LINE)
-		print('\n'+str(msg.payload).decode('base64'))
+		print('\n'+str(msg.payload).decode('base64')+'\x07')
 		#CURSOR_DOWN_ONE = '\x1b[1B'
 		sys.stdout.write(userdata+": ")
 		sys.stdout.flush()
